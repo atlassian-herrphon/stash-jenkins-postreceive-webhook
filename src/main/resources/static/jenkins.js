@@ -20,6 +20,7 @@ define('plugin/jenkins/test', [
             $ignoreCerts = $("#ignoreCerts"),
             $omitHashCode = $("#omitHashCode"),
             $omitBranchName = $("#omitBranchName"),
+            $omitTargetBranch = $("#omitTargetBranch"),
             $status,
             defaultUrls;
 
@@ -33,21 +34,21 @@ define('plugin/jenkins/test', [
 
         function setDeleteButtonEnabled(enabled) {
             if (enabled) {
-                $button.removeProp("disabled").removeClass("disabled");
+                $button.removeAttr("disabled").removeClass("disabled");
             } else {
-                $button.prop("disabled", "disabled").addClass("disabled");
+                $button.attr("disabled", "disabled").addClass("disabled");
             }
         }
 
         function setCloneUrl(val) {
             if (val == "ssh") {
         		$cloneUrl.val( defaultUrls.ssh );
-                $cloneUrl.prop("disabled", "disabled").addClass("disabled");
+                $cloneUrl.attr("disabled", "disabled").addClass("disabled");
         	} else if (val == "http") {
         		$cloneUrl.val( defaultUrls.http );
-                $cloneUrl.prop("disabled", "disabled").addClass("disabled");
+                $cloneUrl.attr("disabled", "disabled").addClass("disabled");
         	} else {
-                $cloneUrl.removeProp("disabled").removeClass("disabled");
+                $cloneUrl.removeAttr("disabled").removeClass("disabled");
             }
         }
 
@@ -87,7 +88,8 @@ define('plugin/jenkins/test', [
                     'gitRepoUrl': [$cloneUrl.val()],
                     'ignoreCerts': [$ignoreCerts.attr('checked') ? "TRUE" : "FALSE"],
                     'omitHashCode': [$omitHashCode.attr('checked') ? "TRUE" : "FALSE"],
-                    'omitBranchName': [$omitBranchName.attr('checked') ? "TRUE" : "FALSE"]
+                    'omitBranchName': [$omitBranchName.attr('checked') ? "TRUE" : "FALSE"],
+                    'omitTargetBranch': [$omitTargetBranch.attr('checked') ? "TRUE" : "FALSE"]
                 }
             }).always(function () {
                 setDeleteButtonEnabled(true)
